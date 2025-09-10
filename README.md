@@ -57,3 +57,37 @@ Balloon Shield is a minimalist, precision-focused arcade game that challenges pl
 ## 🔬 **Technical Deep Dive**
 
 ### **Architecture Overview**
+┌─ React Component Layer ─────────────────────────┐
+│ • Game state management │
+│ • UI rendering and event handling │
+│ • Settings persistence (localStorage) │
+└──────────────────────┬──────────────────────────┘
+┌─ Game Engine Core ────▼─────────────────────────┐
+│ • Fixed timestep game loop │
+│ • Entity-Component architecture │
+│ • State machine (Menu → Playing → GameOver) │
+└──────────────────────┬──────────────────────────┘
+┌─ Systems Layer ───────▼─────────────────────────┐
+│ • Physics System • Collision System │
+│ • Pattern System • Renderer │
+│ • Input System • Camera System │
+└─────────────────────────────────────────────────┘
+
+
+### **Collision Detection Algorithm**
+```typescript
+// Optimized circle-vs-AABB collision with penetration depth
+private circleVsAABB(cx: number, cy: number, r: number, 
+                     ax: number, ay: number, aw: number, ah: number) {
+  const closestX = Math.max(ax, Math.min(cx, ax + aw))
+  const closestY = Math.max(ay, Math.min(cy, ay + ah))
+  
+  const dx = cx - closestX
+  const dy = cy - closestY
+  const distanceSquared = dx * dx + dy * dy
+  
+  return distanceSquared <= r * r ? {
+    penetration: r - Math.sqrt(distanceSquared),
+    normal: { x: dx / distance, y: dy / distance }
+  } : null
+}
