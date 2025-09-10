@@ -91,3 +91,7 @@ private circleVsAABB(cx: number, cy: number, r: number,
     normal: { x: dx / distance, y: dy / distance }
   } : null
 }
+### **Physics Integration**
+- **Velocity Verlet Integration**: Stable numerical integration for smooth object movement
+- **Impulse-Based Resolution**: Realistic collision responses with conservation of momentum
+- **Damping Systems**: Air resistance simulation prevents infinite acceleration
